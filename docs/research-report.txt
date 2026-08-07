@@ -1,0 +1,516 @@
+     Senior Design Project Report
+CSE499 (Section: 4)
+Fall 2022
+Med-Tech: Online doctor consultation with Optical Character Recognition(OCR)
+ 
+
+  
+ Submitted By:
+Sabab Ishraq (ID: 1831524042)
+Md. Fazlay Rabbi Nabid (ID: 1821630042)
+Md. Ismail Hossain (ID: 1831422642)
+ 
+Supervisor:
+Dr. Shohana Rahman Deeba
+Associate Professor
+ 
+DEPARTMENT OF ELECTRICAL AND COMPUTER ENGINEERING
+                                               NORTH SOUTH UNIVERSITY
+ 
+Declaration 
+It is hereby acknowledged that:  
+	•	No illegitimate procedure has been practiced during the preparation of this document. 
+	•	This document does not contain any previously published material without proper citation. 
+	•	This document represents our own accomplishment while being Undergraduate Students in the North South University. 
+ 
+Sincerely, 
+
+	Student 1 Sabab Ishraq 	Student 2 Md Fazlay Rabbi Nabid 
+	1831524042	1821630042 
+                                                   Student 3 Md Ismail Hossain
+                                                                   1821630042 
+
+Approval
+I certify that I have read this dissertation and that, in my opinion, it is fully adequate        in scope and quality as a dissertation.
+
+
+
+
+
+                                                                                                                                                                   
+
+04/1/2023
+Dr. Shohana Rahman Deeba
+Associate Professor Department of Electrical and Computer Engineering
+North South University Dhaka, Bangladesh
+Dr. Shohana Rahman Deeba
+Associate Professor Department of Electrical and Computer Engineering
+North South University Dhaka, Bangladesh
+
+
+
+
+
+
+I certify that I have read this dissertation and that, in my opinion, it is fully adequate        in scope and quality as a dissertation.
+
+
+
+
+
+
+
+Dr. Rajesh Palit
+Professor & Chair Department of Electrical and Computer Engineering
+North South University Dhaka, Bangladesh
+Dr. Rajesh Palit
+Professor & Chair Department of Electrical and Computer Engineering
+North South University Dhaka, Bangladesh
+
+	 
+Abstract 
+A concept and execution version of an online doctor consultation website that includes optical character recognition is presented by Med-Tech. With the assistance of OCR and the storage of such data on the website in an orderly way, the main objective of this project is to reduce instances of inappropriate treatment and to enhance interactions between medical professionals and their patients. This project will entail the development of an online database system that is capable of handling the scheduling, reservation, and records management for doctor consultation appointments at a hospital. An online appointment and consultation system is one of the methods that may be used to give customers with a way to get in touch with their physicians and book an appointment for a consultation. Another option is to use a telephone appointment and consultation system. 
+In this project, software applications are built for a website and an OCR using html, CSS, JavaScript, MySql, Laravel, Tensorflow, Keras and deep learning. Our work includes designing and building the website & implementing the algorithm required to build an OCR. 
+This platform offers doctor's consultation online with a secure database and an OCR.  It makes doctor-patient interaction easier and safer, saving time for both doctors and patients. With the help of an OCR it takes prescriptions from patients, scans it and turns it into machine readable text format.
+
+
+
+
+
+
+
+   
+Contents
+Declaration 				i Approval 		iii Abstract 			v Contents 		vi List of Tables 		vi List of Illustrations 	viii Acknowledgements 			x 1       Med-Tech	10	
+	•	Introduction 	11
+	•	Objective 	12
+	•	Modules 	13
+1.4      Literature Review 	14
+	•	Data Estimation	17
+	•	Introduction 	17
+	•	Exploration 	18
+	•	Technical Analysis 	20
+	•	Design & Implementation 	22
+	•	Datasets 	24
+	•	Website data handling	25
+	•	Methodology 	25
+	•	User Interface 	26
+3.3      Patient & Doctor Appointment History 	27
+	•	Configuration	28
+	•	Installation Specifications 	28
+	•	Software Configurations 	28
+	•	OCR Configurations 	31
+	•	Summary	36
+	•	References	37
+
+List of Tables
+Table 2.1: Elaboration of Keywords	21
+Table 4.1: Installation Specifications	28
+
+List of Illustrations
+Figure 1.1: Flow Diagram of the website		11
+Figure 2.1: Data Visualization Process		17
+Figure 2.2: Tensorflow Workflow		18
+Figure 2.3: Loss vs Epoch graph		19
+Figure 2.4:  System Diagram of ResNet architecture		22
+Figure 2.5: MNIST and Kaggle A-Z dataset		24
+Figure 3.1: Process of Data Visualization		25
+Figure 3.2: User Interface of the website		26
+Figure 3.3: Patient’s appointment history		27
+Figure 3.4: Doctor’s appointment history		27
+Figure 4.1: Google Colab user configuration		28
+Figure 4.2: Windows 10 Environment		29
+Figure 4.3: Laravel Framework		30
+Figure 4.4: Installing Dependencies for OCR model		31
+Figure 4.5: Linking Dataset from Google Drive to the model		32
+Figure 4.6: Loading the OCR model		32
+Figure 4.7: Image Preprocessing		33
+Figure 4.8: Visualizing prediction percentage		34
+Figure 4.9: Text format Display		35
+Figure 5.1: Summary Diagram		36
+
+
+
+
+
+
+Acknowledgements 
+This project under course title CSE499B: Senior Design-II is a part of the research project titled ‘Med-Tech: Online doctor consultation with Optical Character Recognition(OCR)’ under the Department of Electrical & Computer Engineering, North South University. The data, analyses & results of the relevant tasks are confidential and will not be disclosed without prior permission from the respective authorities. We also express our gratitude to Associate Professor Dr. Shohana Rahman Deeba to co-supervise our project. 
+
+1 Med-Tech 
+1.1 Introduction 
+The project Med-Tech entails not only the registration of patients and the storage of their information inside the system, but also the registration of physicians via the use of a list of information and more specifically voter id. The program is equipped with the capability to generate a one-of-a-kind identifier for each individual patient and to automatically save the information of each individual patient as well as each individual doctor. When a patient schedules an appointment with a doctor, the facility keeps the relevant information in its database. A user may make an appointment with a doctor and access their saved information by using their ID.
+Users will need to provide their login and password in order to access the website. It is possible to get access via either the administrator or the receptionist. Only they have access to the database and can add new information to it. The data is not difficult to access at all. The user interface is highly welcoming to newcomers. The data are safeguarded adequately for individuals' usage, which enables the processing of the data to go extremely quickly.
+The website has an optical character recognition tool (OCR) that allows a physician to scan handwritten papers, some of which may be difficult to read or interpret, and get a text format that is legible by a computer for those documents. When a patient schedules an appointment with a doctor, the papers that the patient has uploaded to the system will be forwarded to the doctor, who will then be able to scan the documents using OCR software. 
+
+      
+Figure 1.1: Flow Diagram of the websit                      
+1.2 Objective 
+It will be much easier for patients and their doctors to communicate with one another as a result of this website, which will, in turn, make it much simpler for patients to get treatment remotely and for physicians to administer it. 
+In addition, the likelihood of patients obtaining treatment that falls short of acceptable standards will diminish, which will in turn reduce the danger of patients receiving care that is insufficient. Patients will have a lower risk of losing their prescriptions and there will be a lower risk of any form of misunderstanding about their medical consultation if patients' medical histories and prescriptions are stored in a record that is kept on the internet website. 
+If patients' medical histories and prescriptions are stored in a record that is maintained on the internet website, it will also be less likely that any kind of misunderstanding would develop about their medical conditions. This is because the internet makes it easier to share and access information.
+1.3 MODULES:
+      The entire project mainly consists of 3 modules, which are
+	•	Admin module
+	•	User module (patient)
+	•	Doctor module
+Admin Module:
+	•	Manage department of hospitals, user, doctor, accounts.
+	•	Watch appointment of doctors
+	•	Watch transaction reports of patient payment
+	•	Watch operation report
+	•	Watch birth report
+	•	Watch diagnosis report
+	•	Watch death report
+	•	Manage database
+
+User Module (Patient):
+
+	•	View appointment list and status with doctors
+	•	View prescription details
+	•	View medication from doctor
+	•	View doctor list
+	•	View booking history
+	•	Manage own profile
+	•	View details and feedback from a doctor of every booking done by the user
+
+Doctor Module:
+	•	Manage patient. account opening and updating
+	•	Create, manage appointment with patient
+	•	Create prescription for patient
+	•	Provide medication for patients
+	•	Issue for operation of patients and creates operation report
+	•	Manage own profile
+	•	Use OCR when needed
+
+ 
+ 
+ 
+1.4 Literature Review 
+1.4.1 Application of Optical Character Recognition in Computer Vision 
+ 
+Since the beginning, when it was first used before computers, OCR has had problems. The first OCR wasn't a computer. Instead, it was a device that could recognize the characters, but it was slow and not very good at what it did. Pattern recognition is the most common use of neural networks today. 
+The paper talks about how the Neural Networks used in OCR work. Neural Networks are used a lot in OCR. CNNs are made up of a lot of neurons that are linked together and have weights and biases that can be taught. The neurons in CNN are set up in layers in the way that it is built. It has an input layer, several layers that are hidden, and an output layer. If a neural network has a lot of hidden layers, it is usually called a "deep neural network." In CNN, the neurons within the hidden layers are only connected to a small part of the input space created by the previous layer. In a fully connected network, like a Multi Layered Perceptron (MLP) network, they are connected to all of the input space. When compared to MLP, this method cuts down on the number of network parameters in CNN. So, CNN needs less time to train than other networks of the same size [1]. A typical CNN takes in two-dimensional (2D) arrays of data, like images, as input. The layers of a CNN are set up in three dimensions, which is different from a regular neural network (width, height and depth).
+ We looked at things like the number of Hidden Layers, the size of Hidden Layers, and the number of epochs. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+  
+1.4.2 HARDWARE REQUIREMENTS:
+The physical resources of the computer, more often referred to as hardware, are the most typical group of needs that are specified by any operating system or software program. In the case of operating systems in particular, a hardware compatibility list (HCL) is often seen to be included with a hardware requirements list. An HCL is a hardware compatibility list that details the tested, compatible, and sometimes incompatible hardware components for a certain program or operating system. In the sub-sections that follow, we will talk about the different features of the hardware requirements.
+
+HARDWARE REQUIREMENTS FOR PRESENT PROJECT:
+PROCESSOR               :     Intel-Dual Core ,i5
+RAM			  :      8 GB
+HARD DISK                :     80 GB
+
+  
+1.4.3 SOFTWARE REQUIREMENTS:
+
+The task of establishing the software resource requirements and pre-requisites that need to be installed on a computer in order to ensure the most efficient operation of an application falls within the purview of the Software Requirements department. These prerequisites or requirements are often not included in the installation package for the program and must be installed independently before the product can be installed. This is known as a pre-requisite installation.
+SOFTWARE REQUIREMENTS FOR PRESENT PROJECT:
+OPERATING SYSTEM   :     Windows 10 pro
+FRONT END                    :     Html, CSS, Java Script.
+SERVER SIDE SCRIPT   :     Php
+BACK END                      :      Laravel
+DATABASE                     :     Mysql
+WEB IDE                          :    Google Colab
+
+
+
+
+
+
+1.4.4 PROPOSED SYSTEM:
+Med-Tech is designed for any medical service providing company to replace their existing manual paper based system. The new system is to control the information of patients and booking doctors to get a second opinion with very minimum fee. These services are to be provided in an efficient, cost effective manner, with the goal of reducing the time and resources currently required for such tasks .
+ 
+ 
+1.4.5 FEASIBILITY STUDY
+
+During this phase, the viability of the project is evaluated, and a business proposal is developed, which includes a very high-level outline of the project as well as some estimates of its costs. The feasibility assessment of the proposed system is going to be carried out during the system analysis phase of the project. This is done to guarantee that the planned system will not place an undue strain on the business. In order to do a feasibility study, it is necessary to have a working knowledge of the system's primary needs.
+ 
+1.4.6 Economic and Technical Feasibility
+This research is carried out in order to examine the economic effect that the system will have on the developers in order to check the economic impact that the system will have on the organization. There is a limit on the amount of capital that may be invested by the developers into the investigation and development of the system. It is necessary to provide justification for the expenses. As a result, the constructed system is both functional and economical, and this was made possible by the fact that the majority of the technologies used are openly accessible. Only the goods that have been customized need to be bought.  
+The purpose of this research is to determine whether or not the system can meet the technical criteria, often known as the technical feasibility. Any new system that is built must not place an excessive strain on the technological resources that are already available. This will result in a high level of expectation being put on the customer. The designed system has to have only little or no adjustments in order to implement, hence the requirements for this system should be kept as simple as possible.                                                                         
+ 
+ 
+ 
+ 
+ 
+ 
+2 Data Estimation 
+ 
+2.1 Introduction
+
+Both the MNIST dataset and the A-Z Kaggle dataset were employed in the first stages of the optical character recognition process that we developed. a dataset with some modifications from the National Institute of Standards and Technology (MNIST) It's 60,000 grayscale images of handwritten 0-9 numerals spread over 2828 individual frames. The collection is organized into 26 folders, labeled A to Z, and contains handwritten photographs at a resolution of 2828 by 2020 pixels. Images in their original grayscale form are saved. CSV files may be converted to PNG images in a folder using the Kernel CSVToImages program.
+
+
+
+ 
+Figure 2.1: Data Visualization Process 
+
+
+ 
+ 
+ 
+ 
+2.2 Exploration 
+OCR assignments are sometimes broken up into two parts for the purpose of making their completion easier. Tensorflow starts by using a text detection model in order to discover the bounding boxes that include prospective messages. This is done by locating the edges of the potential messages. The resulting bounding boxes are then sent into a text recognition model via tensorflow, which identifies individual characters that are included inside the bounding boxes (tensorflow also needs to do Non-Maximal Suppression, perspective transformation and etc. beforing text recognition).
+
+ Figure 2.2:  Tensorflow Workflow
+
+
+
+
+
+
+
+
+
+We have used ResNet architecture an artificial neural network for our OCR model. In order to build networks with up to hundreds of convolutional layers that outperform shallower networks, ResNet, a Convolutional Neural Network (CNN) design, addressed the vanishing gradient issue.. We have taken two types of datasets one is the standard MNIST 0-9 dataset and another is the Kaggle A-Z to train our OCR model. These two datasets will help us predict words and numbers of the prescriptions . We have used google collab to implement our OCR model from building the model to training the model and testing it with numerous prescriptions. For testing the OCR model we used numerous prescriptions with different sets of handwriting.
+ 
+ 
+ 
+ 
+ Figure 2.3:  Loss vs Epoch graph
+
+ 
+ 
+ 
+
+  
+2.3 Technical Analysis 
+Creating a ResNet architectural model for the OCR was the strategy that was used in order to conclude the task in a successful manner. This was done in order to ensure that the work could be carried out effectively. To be more specific, The Residual Network, which is also referred to as ResNet, is a deep learning model that is used for a number of computer vision applications. This model was developed by Facebook and is referred to as The Residual Network. It is a kind of architecture that is known as CNN, and it was created to have the ability to accommodate hundreds or thousands of layers of convolution. This capacity was incorporated into the architecture when it was constructed. This capability was one of the key driving forces for the development of it.
+With the aid of a variety of prescription sample sets, our OCR model was evaluated and proven to be accurate after going through its paces. Due to the way it was built, our model is only capable of recognizing a single character at a time, even if it were taught to identify many characters all at once. This is the case even if it were taught to recognize multiple characters simultaneously. It is a mode of thinking that places a focus on one's own characteristics and characteristics of the person's environment.
+The fact of the matter is, however, that users are able to post images that contain not just individual words but also entire phrases and even whole sentences. This is possible due to the fact that the photos may be annotated with text. Because of this, in order for us to acquire correct predictions, we will first need to extract each and every character from the image, and then we will need to enter that information into the model in order to do so. Only then will we be able to achieve our goal of gaining accurate forecasts. After that, and only after that, will we be able to provide forecasts that can be relied upon. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+Below is a list of the meaning of the keywords used: 
+Table 2.1: Elaboration of Keywords
+Keyword 
+Elaboration 
+MNIST  
+Modified National Institute of Standards and Technology dataset
+ResNet
+Residual neural network 
+OCR
+Optical Character Recognition
+CNN
+Convolutional Neural Network 
+kaggle
+Kaggle is an online community platform for data scientists and machine learning enthusiasts.
+Epoch
+An epoch means training the neural network with all the training data for one cycle.
+Dataset
+A machine learning dataset is a collection of data that is used to train the model.
+Model
+A machine learning model is a file that has been trained to recognize certain types of patterns.
+
+
+
+
+2.4 Design and Implementation 
+Our OCR is a deep learning model which is based on ResNet architecture which is a CNN. OCR model was implemented using google colab which is a Web IDE based on python. 
+      
+  
+Figure 2.4:  System Diagram of ResNet architecture
+ 
+ The primary goal of the Preprocessing phase is to simplify as much as possible the task of distinguishing a character or word from the backdrop. This is done in preparation for the OCR system.
+The following are some of the most fundamental and essential preprocessing techniques:
+	•	Binarization
+Binarization, in common parlance, refers to the process of turning a multicolored picture into one that has just black and white pixels (with black pixels having a value of 0 and white pixels having a value of 255). Fixing a threshold is the standard method for doing this, and the typical value for the threshold is 127, which is precisely half of the pixel range of 0–255. If the value of the pixel is higher than the threshold, then it is determined to be a white pixel; otherwise, it is determined to be a black pixel.
+	•	Adjustment for Skewness
+When you scan a document, there is a possibility that it may come out somewhat skewed (with the picture aligned at an angle relative to the horizontal). It is essential to locate and rectify the skew before proceeding with the process of extracting the information from the scanned picture.
+Correction of skew may be accomplished using a variety of methods, including the projection profile approach, the Hough transformation method, the topline method, and the scanline method.
+
+	•	Noise Removal
+The primary purpose of the step known as Noise reduction is to make the picture seem smoother by getting rid of tiny dots and patches that have a higher intensity than the rest of the image. The elimination of noise may be accomplished for either coloured or binary pictures. One method for removing noise is to make use of the fastNlMeansDenoisingColored function that is provided by OpenCV.
+
+	•	The process of thinning and skeletonizing
+The primary purpose of the step known as Noise reduction is to make the picture seem smoother by getting rid of tiny dots and patches that have a higher intensity than the rest of the image. The elimination of noise may be accomplished for either coloured or binary pictures. One method for removing noise is to make use of the fastNlMeansDenoisingColored function that is provided by OpenCV.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+ 
+ 
+2.5  Datasets 
+ 
+
+ 
+Figure 2.5: MNIST and Kaggle A-Z dataset
+ 
+ 
+3 Website data handling 
+3.1 Methodology 
+The MySQL database sends a response to the PHP script in the form of the content that was requested. This response is received by the PHP script. After the data has been saved into one or more PHP variables, the PHP script will employ echo statements to output the data so that it appears on the web page as an essential part of the page. After all is said and done, the PHP interpreter will provide the web server a copy of the HTML that it has created. This will occur after everything is finished.
+
+
+
+Figure 3.1: Process of Data Visualization 
+
+
+3.2 User Interface 
+
+
+
+
+ 
+Figure 3.2: User Interface of the website 
+
+
+3.3 Patient & Doctor Appointment History  
+
+
+ 
+Figure 3.3: Patient’s appointment history
+
+
+
+
+ 
+Figure 3.4: Doctor’s appointment history
+
+
+4 Configuration 
+4.1 Installation Specifications 
+Operating System 
+ Windows  
+Software 
+Visual Studio Code, XAMPP, Chrome browser, 
+Google Colab
+Library 
+Tensorflow, Keras, Laravel
+
+Module 
+Keras module of tensorflow 
+Table 4.1: Installation Specifications 
+4.2 Software Configurations 
+
+
+ 
+Figure 4.1: Google Colab user configuration 
+Google Colab is mounted with the google drive where data is stored to train and test the OCR model. With the help of Google Colab two or more people can work on the project simultaneously and save the file. 
+ 
+4.2.1 Windows
+Microsoft created and commercialized the Windows operating system family. Each family serves a certain computer field. Windows IoT for embedded devices, Windows NT for consumers. Windows 9x, Mobile, and Phone are defunct. 
+
+ 
+                                               Figure 4.2: Windows 10 Environment 
+Windows is the most popular desktop operating system in the world, with 75% market share as of April 2022, according to StatCounter.[1] However, Windows is not the most used operating system when including both mobile and desktop OSes, due to Android's massive growth.[2]      
+ 
+ 
+ 
+ 
+ 
+4.2.2 Laravel 
+Laravel is a framework for developing web applications that has expressive and beautiful syntax. We are of the opinion that in order for growth to be genuinely satisfying, it must be a fun and creative process. Laravel is an open-source web application framework that simplifies routine chores that are integral to the bulk of web development projects. These duties include authentication and routing, as well as sessions and caching.
+
+Laravel's goal is to make the experience of application development more enjoyable for developers without compromising the capabilities of the applications themselves. Developers who are content produce the highest-quality code. In order to do this, we have made an effort to include the most useful features that we have discovered in several different web frameworks. These features come from web frameworks written in a variety of languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
+
+Laravel is simple to use despite its capability, and it offers the comprehensive tools that are necessary for creating massive projects. You will have the tools necessary to construct whatever application you are faced with thanks to a superior inversion of control container, an expressive migration mechanism, and tightly integrated support for unit testing.
+
+
+
+               Figure 4.3: Laravel Framework 
+ 
+
+4.3 OCR Configuration
+ 
+
+
+         Figure 4.4: Installing Dependencies for OCR model
+
+
+
+
+Figure 4.5: Linking Dataset from Google Drive to the Model 
+
+
+
+Figure 4.6: Loading the OCR model
+
+
+
+ 
+ Figure 4.7: Image Preprocessing
+4.3.1 OCR Model Testing
+
+
+Figure 4.8: Visualizing prediction percentage 
+
+ 
+ 
+                                                               
+4.3.2 Text Format Display 
+The user interface and functionalities of the project were visualized using an one touch operable touch screen display device. 
+
+ 
+Figure 4.9: Text format Display 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5 Summary 
+An online medical consultation might be the best choice for you if the problem you're experiencing with your health does not constitute an emergency and does not call for immediate medical treatment. Your medical history may be accessed by online physicians, and they can provide treatment recommendations for a variety of ailments. As a consequence, using this website will be beneficial in a more general sense about medical care. 
+
+Figure 5.1:  Summary Diagram
+
+ This platform offers doctor's consultation online with a secure database and an OCR.  This platform makes doctor-patient interaction easier and safer, saving time for both doctors and patients. The website contains an OCR which takes a prescription from patients, scans it and turns it into machine readable text format.
+
+
+
+
+
+6 References 
+ 
+	•	Krizhevsky, Alex and Sutskever, Ilya and Hinton, Geoffrey E. (2012) “Imagenet classification with deep convolutional neural networks.Advances in neural information processing systems:10971105.
+	•	The Unusual History of Microsoft Windows". Retrieved April 22, 2007.
+	•	Desktop Operating System Market Share Worldwide". StatCounter Global Stats.
+	•	A. Hannun, Sequence ModelingWith CTC (2017),
+	•	T. Bluche, J. Louradour, and R. Messina Scan Attend, and Read: End-to-End Handwritten Paragraph Recognition with MDLSTM Attention (2016)
+	•	B. Shi and X. Bai and C. Yao An End-to-End Trainable Neural Network for Image-based Sequence Recognition and Its Application to Scene Text Recognition (2015)
+ 
