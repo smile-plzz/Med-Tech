@@ -23,8 +23,33 @@ Med-Tech enables patients to book and manage doctor consultations online while g
 ## Repository Structure
 
 ```
+app/                     # Next.js 14 rebuild (TypeScript, Prisma/SQLite, Tesseract.js OCR)
 docs/
-  research-report.txt   # Original senior design project report (source reference)
+  research-report.txt    # Original senior design project report (source reference)
+  research-rewrite.md    # WHY/HOW/WHAT mapping from the original report to this rebuild
+```
+
+## Rebuild (2026)
+
+The active implementation lives in `app/`. It is a Next.js 14 App Router
+project with:
+
+- JWT cookie auth for Admin / Doctor / Patient roles
+- Prisma + SQLite for departments, doctors, patients, appointments,
+  transactions, prescriptions, and reports
+- Doctor self-registration with admin approval before appearing in search
+- Patient booking flow, appointment status lifecycle, feedback
+- Browser-side OCR (`/ocr`) via Tesseract.js for digitizing prescriptions
+
+See `docs/research-rewrite.md` for what changed from the original report and
+why. To run it locally:
+
+```
+cd app
+npm install
+npx prisma migrate dev
+npm run db:seed   # creates admin@medtech.dev / admin123 + starter departments
+npm run dev
 ```
 
 ## Background
@@ -33,4 +58,5 @@ This repo picks up an earlier research/senior-design project exploring the same 
 
 ## Status
 
-Early stage — bootstrapped from prior research. Implementation to follow.
+`app/` is a working rebuild: auth, booking, doctor approval, prescriptions,
+feedback, and OCR are implemented and smoke-tested end-to-end.
