@@ -1,0 +1,154 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum Role {
+  ADMIN
+  DOCTOR
+  PATIENT
+}
+
+enum AppointmentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
+  CANCELLED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      Role
+  phone     String?
+  createdAt DateTime @default(now())
+
+  doctor  Doctor?
+  patient Patient?
+}
+
+model Department {
+  id      String   @id @default(cuid())
+  name    String   @unique
+  doctors Doctor[]
+}
+
+model Doctor {
+  id           String     @id @default(cuid())
+  user         User       @relation(fields: [userId], references: [id])
+  userId       String     @unique
+  department   Department @relation(fields: [departmentId], references: [id])
+  departmentId String
+  chamber      String?
+  approved     Boolean    @default(false)
+  fee          Int        @default(0)
+
+  appointments   Appointment[]
+  prescriptions  Prescription[]
+  operationRpts  OperationReport[]
+}
+
+model Patient {
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+  dob    DateTime?
+  gender String?
+
+  appointments  Appointment[]
+  prescriptions Prescription[]
+  feedbacks     Feedback[]
+}
+
+model Appointment {
+  id        String            @id @default(cuid())
+  doctor    Doctor            @relation(fields: [doctorId], references: [id])
+  doctorId  String
+  patient   Patient           @relation(fields: [patientId], references: [id])
+  patientId String
+  date      DateTime
+  timeSlot  String
+  status    AppointmentStatus @default(PENDING)
+  createdAt DateTime          @default(now())
+
+  transaction  Transaction?
+  prescription Prescription?
+  feedback     Feedback?
+}
+
+model Transaction {
+  id            String      @id @default(cuid())
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+  appointmentId String      @unique
+  amount        Int
+  status        String      @default("PAID")
+  createdAt     DateTime    @default(now())
+}
+
+model Prescription {
+  id            String       @id @default(cuid())
+  appointment   Appointment  @relation(fields: [appointmentId], references: [id])
+  appointmentId String       @unique
+  doctor        Doctor       @relation(fields: [doctorId], references: [id])
+  doctorId      String
+  patient       Patient      @relation(fields: [patientId], references: [id])
+  patientId     String
+  medication    String
+  notes         String?
+  ocrSourceText String?
+  createdAt     DateTime     @default(now())
+}
+
+model OperationReport {
+  id        String   @id @default(cuid())
+  doctor    Doctor   @relation(fields: [doctorId], references: [id])
+  doctorId  String
+  patientName String
+  summary   String
+  date      DateTime @default(now())
+}
+
+model BirthReport {
+  id          String   @id @default(cuid())
+  motherName  String
+  babyName    String?
+  date        DateTime @default(now())
+  notes       String?
+}
+
+model DiagnosisReport {
+  id          String   @id @default(cuid())
+  patientName String
+  diagnosis   String
+  date        DateTime @default(now())
+}
+
+model DeathReport {
+  id          String   @id @default(cuid())
+  patientName String
+  cause       String
+  date        DateTime @default(now())
+}
+
+model Feedback {
+  id            String      @id @default(cuid())
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+  appointmentId String      @unique
+  patient       Patient     @relation(fields: [patientId], references: [id])
+  patientId     String
+  rating        Int
+  comment       String?
+  createdAt     DateTime    @default(now())
+}
